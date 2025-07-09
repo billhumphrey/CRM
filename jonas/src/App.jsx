@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import DashboardLayout from "./layout/DashboardLayout";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Dashboard from "./pages/Dashboard";
+import AddHouseMaid from "./pages/AddHouseMaid";
+import HouseMaidList from "./pages/HouseMaidList";
+import AddClient from "./pages/AddClient";
+import ClientList from "./pages/ClientList";
 
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Routes>
+      <Route path="/" element={<DashboardLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="add-housemaid" element={<AddHouseMaid />} />
+        <Route path="housemaids" element={<HouseMaidList />} />
+        <Route path="add-client" element={<AddClient />} />
+        <Route path="clients" element={<ClientList />} />
+      </Route>
+    </Routes>
+  );
+};
 
-export default App
+export default App;
