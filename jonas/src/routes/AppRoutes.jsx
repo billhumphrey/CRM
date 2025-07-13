@@ -4,6 +4,8 @@ import AddHouseMaid from "../pages/AddHouseMaid";
 import HouseMaidList from "../pages/HouseMaidList";
 import AddClient from "../pages/AddClient";
 import ClientList from "../pages/ClientList";
+import Dashboard from "../pages/Dashboard";
+import Home from "../pages/Home";
 
 export default function AppRoutes() {
   return (
@@ -13,6 +15,8 @@ export default function AppRoutes() {
         <Route path="housemaids" element={<HouseMaidList />} />
         <Route path="add-client" element={<AddClient />} />
         <Route path="clients" element={<ClientList />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="home" element={<Home />} />
       </Route>
     </Routes>
   );
