@@ -130,11 +130,17 @@ form {
 /* === Form Container Border === */
 .form-wrapper {
   border: 4px solid #1f2937;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 2rem;
   background-color: #f3f4f6;
 }
 
+@media (max-width: 768px) {
+  .form-wrapper {
+    border: none;
+    padding: 1rem;
+  }
+}
 
 @media (min-width: 768px) {
   .md\:grid-cols-2 {
