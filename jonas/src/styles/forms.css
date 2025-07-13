@@ -128,12 +128,12 @@ form {
 }
 
 /* === Form Container Border === */
-.form-wrapper {
+/* .form-wrapper {
   border: 4px solid #1f2937;
   border-radius: 12px;
   padding: 2rem;
   background-color: #f3f4f6;
-}
+} */
 
 
 @media (min-width: 768px) {
