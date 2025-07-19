@@ -23,7 +23,7 @@ export default function Login() {
     <div className="login-page">
       <div className="login-card">
         <div className="login-header">
-          <h2 className="login-title">Sign in to Admin Panel</h2>
+          <h2 className="login-title">Login to Your Account</h2>
           <p className="login-subtitle">Enter your credentials below</p>
         </div>
 
@@ -58,6 +58,13 @@ export default function Login() {
 
           <button type="submit" className="login-button">Sign In</button>
         </form>
+
+        {/* Reset Account link */}
+        <div className="reset-link-wrapper">
+          <span className="reset-link" onClick={() => navigate("/reset")}>
+            Reset Account?
+          </span>
+        </div>
       </div>
     </div>
   );

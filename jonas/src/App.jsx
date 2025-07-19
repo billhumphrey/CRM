@@ -7,6 +7,8 @@ import ClientList from "./pages/ClientList";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Reset from "./pages/Reset"; 
+import { useState } from "react";
 
 export default function AppRoutes() {
   return (
@@ -23,6 +25,7 @@ export default function AppRoutes() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="home" element={<Home />} />
         <Route path="login" element={<Login />} />
+        <Route path="reset" element={<Reset />} />
       </Route>
     </Routes>
   );
