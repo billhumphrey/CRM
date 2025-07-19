@@ -4,22 +4,34 @@ import "../styles/login.css";
 
 export default function Reset() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
   const handleReset = (e) => {
     e.preventDefault();
 
-    if (username.trim().length < 3) {
-      setError("Please enter a valid username.");
+    // Basic validations
+    if (newUsername.trim().length < 3) {
+      setError("Username must be at least 3 characters.");
       setMessage("");
       return;
     }
 
-    // Simulate reset success
+    if (newPassword.trim().length < 6) {
+      setError("Password must be at least 6 characters.");
+      setMessage("");
+      return;
+    }
+
+    // Simulate saving new credentials (in real app, you'd call an API)
+    localStorage.setItem("username", newUsername);
+    localStorage.setItem("password", newPassword);
+
     setError("");
-    setMessage(`A reset link has been sent for user "${username}".`);
+    setMessage("Account reset successful. You can now log in.");
+    setTimeout(() => navigate("/"), 2000); // Redirect to login after 2s
   };
 
   return (
@@ -27,7 +39,7 @@ export default function Reset() {
       <div className="login-card">
         <div className="login-header">
           <h2 className="login-title">Reset Your Account</h2>
-          <p className="login-subtitle">Enter your username to receive a reset link</p>
+          <p className="login-subtitle">Enter your new credentials below</p>
         </div>
 
         {message && <p className="login-success">{message}</p>}
@@ -35,19 +47,32 @@ export default function Reset() {
 
         <form onSubmit={handleReset} className="login-form">
           <div className="login-form-group">
-            <label htmlFor="username" className="login-label">Username</label>
+            <label htmlFor="newUsername" className="login-label">New Username</label>
             <input
-              id="username"
+              id="newUsername"
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={newUsername}
+              onChange={(e) => setNewUsername(e.target.value)}
               className="login-input"
-              placeholder="Enter your username"
+              placeholder="Enter new username"
               required
             />
           </div>
 
-          <button type="submit" className="login-button">Send Reset Link</button>
+          <div className="login-form-group">
+            <label htmlFor="newPassword" className="login-label">New Password</label>
+            <input
+              id="newPassword"
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="login-input"
+              placeholder="Enter new password"
+              required
+            />
+          </div>
+
+          <button type="submit" className="login-button">Reset Account</button>
         </form>
 
         <div className="reset-link-wrapper">

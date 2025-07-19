@@ -7,25 +7,23 @@ import ClientList from "./pages/ClientList";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Reset from "./pages/Reset"; 
-import { useState } from "react";
+import Reset from "./pages/Reset";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* Login route without layout */}
+      {/* Public routes */}
       <Route path="/" element={<Login />} />
+      <Route path="/reset" element={<Reset />} />
 
-      {/* All other routes inside dashboard layout */}
-        <Route path="/app" element={<DashboardLayout />}>
+      {/* Protected routes inside dashboard layout */}
+      <Route path="/app" element={<DashboardLayout />}>
         <Route path="add-housemaid" element={<AddHouseMaid />} />
         <Route path="housemaids" element={<HouseMaidList />} />
         <Route path="add-client" element={<AddClient />} />
         <Route path="clients" element={<ClientList />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="home" element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="reset" element={<Reset />} />
       </Route>
     </Routes>
   );

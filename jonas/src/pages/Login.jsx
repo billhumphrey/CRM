@@ -61,9 +61,10 @@ export default function Login() {
 
         {/* Reset Account link */}
         <div className="reset-link-wrapper">
-          <span className="reset-link" onClick={() => navigate("/reset")}>
-            Reset Account?
-          </span>
+<span className="reset-link" onClick={() => navigate("/reset")}>
+  Reset Account?
+</span>
+
         </div>
       </div>
     </div>
