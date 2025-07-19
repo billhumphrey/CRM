@@ -1,0 +1,112 @@
+:root {
+  --primary-color: #1f2937;     /* Gray-800 */
+  --primary-light: #f3f4f6;     /* Gray-100 */
+  --primary-lighter: #f9fafb;   /* Gray-50 */
+  --text-light: #ffffff;
+  --text-dark: #111827;
+  --border-color: #d1d5db;
+  --accent-color: #3b82f6;      /* Blue-500 */
+  --error-color: #ef4444;       /* Red-500 */
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--primary-lighter);
+  padding: 1rem;
+}
+
+.login-card {
+  background-color: var(--primary-color);
+  padding: 3rem 2.5rem;
+  max-width: 420px;
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+  color: var(--text-light);
+  animation: fadeIn 0.4s ease-in;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+  font-size: 0.95rem;
+  color: #d1d5db;
+}
+
+.login-error {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.login-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #f3f4f6;
+}
+
+.login-input {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+  color: var(--text-dark);
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+}
+
+.login-button {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.login-button:hover {
+  background-color: #2563eb; /* blue-600 */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

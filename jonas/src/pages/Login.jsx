@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/login.css";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,56 +11,52 @@ export default function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Example authentication logic
     if (username === "admin" && password === "password123") {
       localStorage.setItem("authToken", "example-token");
-      navigate("/");
+      navigate("/app/dashboard");
     } else {
       setError("Invalid username or password.");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="max-w-sm w-full bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
-        {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
+    <div className="login-page">
+      <div className="login-card">
+        <div className="login-header">
+          <h2 className="login-title">Sign in to Admin Panel</h2>
+          <p className="login-subtitle">Enter your credentials below</p>
+        </div>
 
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-700 font-medium mb-1">
-              Username
-            </label>
+        {error && <p className="login-error">{error}</p>}
+
+        <form onSubmit={handleLogin} className="login-form">
+          <div className="login-form-group">
+            <label htmlFor="username" className="login-label">Username</label>
             <input
               id="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-400"
+              className="login-input"
+              placeholder="Enter your username"
               required
             />
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-gray-700 font-medium mb-1">
-              Password
-            </label>
+          <div className="login-form-group">
+            <label htmlFor="password" className="login-label">Password</label>
             <input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-400"
+              className="login-input"
+              placeholder="••••••••"
               required
             />
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition"
-          >
-            Login
-          </button>
+          <button type="submit" className="login-button">Sign In</button>
         </form>
       </div>
     </div>

@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #2563eb;
+  background-color: #495a7e;
   color: white;
   padding: 1.5rem;
   border-radius: 1rem;
@@ -38,6 +38,6 @@
 }
 
 .card:hover {
-  background-color: #1d4ed8;
+  background-color: #414e72;
   transform: translateY(-4px);
 }

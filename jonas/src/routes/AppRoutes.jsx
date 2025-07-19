@@ -11,7 +11,11 @@ import Login from "../pages/Login";
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<DashboardLayout />}>
+      {/* Login route without layout */}
+      <Route path="/" element={<Login />} />
+
+      {/* All other routes inside dashboard layout */}
+        <Route path="/app" element={<DashboardLayout />}>
         <Route path="add-housemaid" element={<AddHouseMaid />} />
         <Route path="housemaids" element={<HouseMaidList />} />
         <Route path="add-client" element={<AddClient />} />

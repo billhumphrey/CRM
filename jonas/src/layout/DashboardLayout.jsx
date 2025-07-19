@@ -9,24 +9,24 @@ export default function DashboardLayout() {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    navigate("/login");
+    navigate("/");
   };
 
   const navLinks = (
     <>
-      <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
+      <NavLink to="./dashboard" className={({ isActive }) => (isActive ? "active" : "")}>
         Dashboard
       </NavLink>
-      <NavLink to="/add-housemaid" className={({ isActive }) => (isActive ? "active" : "")}>
+      <NavLink to="./add-housemaid" className={({ isActive }) => (isActive ? "active" : "")}>
         Add House Maid
       </NavLink>
-      <NavLink to="/housemaids" className={({ isActive }) => (isActive ? "active" : "")}>
+      <NavLink to="./housemaids" className={({ isActive }) => (isActive ? "active" : "")}>
         House Maid List
       </NavLink>
-      <NavLink to="/add-client" className={({ isActive }) => (isActive ? "active" : "")}>
+      <NavLink to="./add-client" className={({ isActive }) => (isActive ? "active" : "")}>
         Add Client
       </NavLink>
-      <NavLink to="/clients" className={({ isActive }) => (isActive ? "active" : "")}>
+      <NavLink to="./clients" className={({ isActive }) => (isActive ? "active" : "")}>
         Client List
       </NavLink>
     </>
