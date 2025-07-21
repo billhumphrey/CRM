@@ -1,6 +1,5 @@
-// src/pages/ClientList.jsx
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import "../styles/list.css"; // ✅ External styling
 
@@ -27,10 +26,21 @@ const ClientList = () => {
     fetchClients();
   }, []);
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this client?")) return;
+    try {
+      await deleteDoc(doc(db, "clients", id));
+      setClients((prev) => prev.filter((client) => client.id !== id));
+    } catch (err) {
+      console.error("Failed to delete client:", err);
+      alert("Failed to delete client.");
+    }
+  };
+
   const tableHeaders = [
     "Name", "DOB", "Age", "Email", "Phone", "Phone Number", "Contact 1", "Contact 2",
     "Address", "Passport", "PCC", "Field", "Designation", "Registration", "Office",
-    "Medical", "Payment", "Travel", "Interview", "Comments"
+    "Medical", "Payment", "Travel", "Interview", "Comments", "Actions"
   ];
 
   return (
@@ -74,6 +84,14 @@ const ClientList = () => {
                   <td>{client.travel || "—"}</td>
                   <td>{client.interview || "—"}</td>
                   <td>{client.comments || "—"}</td>
+                  <td>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(client.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -1,8 +1,7 @@
-// src/pages/HouseMaidList.jsx
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
-import "../styles/list.css"; // ✅ Link to external stylesheet
+import "../styles/list.css";
 
 const HouseMaidList = () => {
   const [maids, setMaids] = useState([]);
@@ -27,9 +26,20 @@ const HouseMaidList = () => {
     fetchMaids();
   }, []);
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this maid?")) return;
+    try {
+      await deleteDoc(doc(db, "maid", id));
+      setMaids((prev) => prev.filter((m) => m.id !== id));
+    } catch (err) {
+      console.error("Failed to delete maid:", err);
+      alert("Failed to delete maid.");
+    }
+  };
+
   const tableHeaders = [
     "Name", "Contact", "Passport", "PCC", "Training", "Office", "Exit", "Travel",
-    "Medical", "Payment", "Next of Kin", "Relationship", "Kin Contact 1", "Kin Contact 2", "Comments"
+    "Medical", "Payment", "Next of Kin", "Relationship", "Kin Contact 1", "Kin Contact 2", "Comments", "Actions"
   ];
 
   return (
@@ -68,6 +78,14 @@ const HouseMaidList = () => {
                   <td>{maid.kinContact1 || "-"}</td>
                   <td>{maid.kinContact2 || "-"}</td>
                   <td>{maid.comments || "-"}</td>
+                  <td>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(maid.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
