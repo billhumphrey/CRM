@@ -95,47 +95,59 @@ const HouseMaidList = () => {
                 ))}
               </tr>
             </thead>
-            <tbody>
-              {filteredMaids.map((maid) => {
-                const term = searchTerm.toLowerCase();
-                const isMatch =
-                  term &&
-                  (
-                    `${maid.name} ${maid.lastName}`.toLowerCase().includes(term) ||
-                    (maid.contact && maid.contact.toLowerCase().includes(term)) ||
-                    (maid.passport && maid.passport.toLowerCase().includes(term)) ||
-                    (maid.kinName && maid.kinName.toLowerCase().includes(term))
-                  );
+     <tbody>
+  {filteredMaids.map((maid) => {
+    const term = searchTerm.toLowerCase();
+    const isMatch =
+      term &&
+      (
+        `${maid.name} ${maid.lastName}`.toLowerCase().includes(term) ||
+        (maid.contact && maid.contact.toLowerCase().includes(term)) ||
+        (maid.passport && maid.passport.toLowerCase().includes(term)) ||
+        (maid.kinName && maid.kinName.toLowerCase().includes(term))
+      );
 
-                return (
-                  <tr key={maid.id} className={isMatch ? "highlighted-row" : ""}>
-                    <td>{maid.name} {maid.lastName}</td>
-                    <td>{maid.contact || "-"}</td>
-                    <td>{maid.passport || "-"}</td>
-                    <td>{maid.pcc || "-"}</td>
-                    <td>{maid.training || "-"}</td>
-                    <td>{maid.office || "-"}</td>
-                    <td>{maid.exit || "-"}</td>
-                    <td>{maid.travel || "-"}</td>
-                    <td>{maid.medical || "-"}</td>
-                    <td>{maid.payment || "-"}</td>
-                    <td>{maid.kinName || "-"}</td>
-                    <td>{maid.relationship || "-"}</td>
-                    <td>{maid.kinContact1 || "-"}</td>
-                    <td>{maid.kinContact2 || "-"}</td>
-                    <td>{maid.comments || "-"}</td>
-                    <td>
-                      <button
-                        className="delete-btn"
-                        onClick={() => handleDelete(maid.id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
+    // Normalize values
+    const travel = maid.travel?.toLowerCase();
+    const payment = maid.payment?.toLowerCase();
+
+    const paid = payment === "paid";
+    const travelled = travel === "yes" || travel === "ready";
+
+    let rowClass = "";
+    if (!paid && travelled) {
+      rowClass = "yellow-row";
+    } else if (paid && travelled) {
+      rowClass = "green-row";
+    }
+
+    const highlightClass = searchTerm && isMatch ? "highlighted-row" : "";
+
+    return (
+      <tr key={maid.id} className={`${highlightClass} ${rowClass}`}>
+        <td>{maid.name} {maid.lastName}</td>
+        <td>{maid.contact || "-"}</td>
+        <td>{maid.passport || "-"}</td>
+        <td>{maid.pcc || "-"}</td>
+        <td>{maid.training || "-"}</td>
+        <td>{maid.office || "-"}</td>
+        <td>{maid.exit || "-"}</td>
+        <td>{maid.travel || "-"}</td>
+        <td>{maid.medical || "-"}</td>
+        <td>{maid.payment || "-"}</td>
+        <td>{maid.kinName || "-"}</td>
+        <td>{maid.relationship || "-"}</td>
+        <td>{maid.kinContact1 || "-"}</td>
+        <td>{maid.kinContact2 || "-"}</td>
+        <td>{maid.comments || "-"}</td>
+        <td>
+          <button className="delete-btn" onClick={() => handleDelete(maid.id)}>Delete</button>
+        </td>
+      </tr>
+    );
+  })}
+</tbody>
+
           </table>
         </div>
       )}

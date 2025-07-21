@@ -34,11 +34,9 @@ const ClientList = () => {
   useEffect(() => {
     const term = searchTerm.toLowerCase();
     const filtered = clients.filter((client) =>
-      (
-        `${client.firstName} ${client.lastName}`.toLowerCase().includes(term) ||
-        (client.phone && client.phone.toLowerCase().includes(term)) ||
-        (client.passport && client.passport.toLowerCase().includes(term))
-      )
+      `${client.firstName} ${client.lastName}`.toLowerCase().includes(term) ||
+      (client.phone && client.phone.toLowerCase().includes(term)) ||
+      (client.passport && client.passport.toLowerCase().includes(term))
     );
     setFilteredClients(filtered);
   }, [searchTerm, clients]);
@@ -95,49 +93,63 @@ const ClientList = () => {
                 ))}
               </tr>
             </thead>
-            <tbody>
-              {filteredClients.map((client) => {
-                const term = searchTerm.toLowerCase();
-                const isMatch =
-                  term &&
-                  (
-                    `${client.firstName} ${client.lastName}`.toLowerCase().includes(term) ||
-                    (client.phone && client.phone.toLowerCase().includes(term)) ||
-                    (client.passport && client.passport.toLowerCase().includes(term))
-                  );
+<tbody>
+  {filteredClients.map((client) => {
+    const term = searchTerm.toLowerCase();
+    const isMatch =
+      term &&
+      (
+        `${client.firstName} ${client.lastName}`.toLowerCase().includes(term) ||
+        (client.phone && client.phone.toLowerCase().includes(term)) ||
+        (client.passport && client.passport.toLowerCase().includes(term))
+      );
 
-                return (
-                  <tr key={client.id} className={isMatch ? "highlighted-row" : ""}>
-                    <td>{client.firstName} {client.lastName}</td>
-                    <td>{client.dob || "—"}</td>
-                    <td>{client.age || "—"}</td>
-                    <td>{client.phone || "—"}</td>
-                    <td>{client.phoneNumber || "—"}</td>
-                    <td>{client.contact1 || "—"}</td>
-                    <td>{client.contact2 || "—"}</td>
-                    <td>{client.passport || "—"}</td>
-                    <td>{client.pcc || "—"}</td>
-                    <td>{client.field || "—"}</td>
-                    <td>{client.designation || "—"}</td>
-                    <td>{client.registrationStatus || "—"}</td>
-                    <td>{client.office || "—"}</td>
-                    <td>{client.medical || "—"}</td>
-                    <td>{client.payment || "—"}</td>
-                    <td>{client.travel || "—"}</td>
-                    <td>{client.interview || "—"}</td>
-                    <td>{client.comments || "—"}</td>
-                    <td>
-                      <button
-                        className="delete-btn"
-                        onClick={() => handleDelete(client.id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
+    // Normalize and compare travel/payment
+    const payment = client.payment?.toLowerCase();
+    const travel = client.travel?.toLowerCase();
+
+    const paid = payment === "paid";
+    const travelled = travel === "yes" || travel === "travelled" || travel === "ready";
+
+    let rowClass = "";
+    if (!paid && travelled) {
+      rowClass = "yellow-row";
+    } else if (paid && travelled) {
+      rowClass = "green-row";
+    }
+
+    const highlightClass = searchTerm && isMatch ? "highlighted-row" : "";
+
+    return (
+      <tr key={client.id} className={`${highlightClass} ${rowClass}`}>
+        <td>{client.firstName} {client.lastName}</td>
+        <td>{client.dob || "—"}</td>
+        <td>{client.age || "—"}</td>
+        <td>{client.phone || "—"}</td>
+        <td>{client.phoneNumber || "—"}</td>
+        <td>{client.contact1 || "—"}</td>
+        <td>{client.contact2 || "—"}</td>
+        <td>{client.passport || "—"}</td>
+        <td>{client.pcc || "—"}</td>
+        <td>{client.field || "—"}</td>
+        <td>{client.designation || "—"}</td>
+        <td>{client.registrationStatus || "—"}</td>
+        <td>{client.office || "—"}</td>
+        <td>{client.medical || "—"}</td>
+        <td>{client.payment || "—"}</td>
+        <td>{client.travel || "—"}</td>
+        <td>{client.interview || "—"}</td>
+        <td>{client.comments || "—"}</td>
+        <td>
+          <button className="delete-btn" onClick={() => handleDelete(client.id)}>
+            Delete
+          </button>
+        </td>
+      </tr>
+    );
+  })}
+</tbody>
+
           </table>
         </div>
       )}

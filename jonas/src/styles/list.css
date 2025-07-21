@@ -79,3 +79,53 @@
 .highlighted-row td {
   font-weight: 500;
 }
+.highlighted-row {
+  background-color: #fff7a8 !important;
+  transition: background-color 0.3s ease;
+}
+
+.green-row {
+  background-color: #d4fcd2 !important;
+}
+
+.yellow-row {
+  background-color: #fff9c4 !important;
+}
+
+.delete-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.search-icon {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.search-input {
+  padding: 6px 10px;
+  font-size: 14px;
+  width: 250px;
+}
+
+.client-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.client-table th,
+.client-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
