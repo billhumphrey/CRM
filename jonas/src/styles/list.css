@@ -29,3 +29,53 @@
 .delete-btn:hover {
   background-color: #c53030;
 }
+
+.search-bar {
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.search-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-icon {
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.search-icon:hover {
+  color: #007bff;
+}
+
+.search-input {
+  flex: 1;
+  max-width: 400px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Highlighted row style */
+.highlighted-row {
+  background-color: #7fa6b8;
+  border-left: 4px solid #016af5;
+  transition: background-color 0.3s ease;
+}
+
+.highlighted-row td {
+  font-weight: 500;
+}

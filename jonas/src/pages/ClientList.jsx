@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
-import "../styles/list.css"; // ✅ External styling
+import { FaSearch } from "react-icons/fa";
+import "../styles/list.css";
 
 const ClientList = () => {
   const [clients, setClients] = useState([]);
+  const [filteredClients, setFilteredClients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
     const fetchClients = async () => {
@@ -16,6 +20,7 @@ const ClientList = () => {
           ...doc.data(),
         }));
         setClients(clientArray);
+        setFilteredClients(clientArray);
       } catch (err) {
         console.error("Error fetching clients:", err);
       } finally {
@@ -25,6 +30,19 @@ const ClientList = () => {
 
     fetchClients();
   }, []);
+
+  useEffect(() => {
+    const term = searchTerm.toLowerCase();
+    const filtered = clients.filter((client) =>
+      (
+        `${client.firstName} ${client.lastName}`.toLowerCase().includes(term) ||
+        (client.email && client.email.toLowerCase().includes(term)) ||
+        (client.phone && client.phone.toLowerCase().includes(term)) ||
+        (client.passport && client.passport.toLowerCase().includes(term))
+      )
+    );
+    setFilteredClients(filtered);
+  }, [searchTerm, clients]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this client?")) return;
@@ -47,10 +65,27 @@ const ClientList = () => {
     <div className="client-list-container">
       <h2 className="client-list-title">Client List</h2>
 
+      <div className="search-toggle">
+        <FaSearch
+          className="search-icon"
+          title="Toggle Search"
+          onClick={() => setShowSearch(!showSearch)}
+        />
+        {showSearch && (
+          <input
+            type="text"
+            placeholder="Search by name, email, phone, passport..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+        )}
+      </div>
+
       {loading ? (
         <p>Loading clients…</p>
-      ) : clients.length === 0 ? (
-        <p>No clients found.</p>
+      ) : filteredClients.length === 0 ? (
+        <p>No matching clients found.</p>
       ) : (
         <div className="table-wrapper">
           <table className="client-table">
@@ -62,38 +97,50 @@ const ClientList = () => {
               </tr>
             </thead>
             <tbody>
-              {clients.map((client) => (
-                <tr key={client.id}>
-                  <td>{client.firstName} {client.lastName}</td>
-                  <td>{client.dob || "—"}</td>
-                  <td>{client.age || "—"}</td>
-                  <td>{client.email || "—"}</td>
-                  <td>{client.phone || "—"}</td>
-                  <td>{client.phoneNumber || "—"}</td>
-                  <td>{client.contact1 || "—"}</td>
-                  <td>{client.contact2 || "—"}</td>
-                  <td>{client.address || "—"}</td>
-                  <td>{client.passport || "—"}</td>
-                  <td>{client.pcc || "—"}</td>
-                  <td>{client.field || "—"}</td>
-                  <td>{client.designation || "—"}</td>
-                  <td>{client.registrationStatus || "—"}</td>
-                  <td>{client.office || "—"}</td>
-                  <td>{client.medical || "—"}</td>
-                  <td>{client.payment || "—"}</td>
-                  <td>{client.travel || "—"}</td>
-                  <td>{client.interview || "—"}</td>
-                  <td>{client.comments || "—"}</td>
-                  <td>
-                    <button
-                      className="delete-btn"
-                      onClick={() => handleDelete(client.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {filteredClients.map((client) => {
+                const term = searchTerm.toLowerCase();
+                const isMatch =
+                  term &&
+                  (
+                    `${client.firstName} ${client.lastName}`.toLowerCase().includes(term) ||
+                    (client.email && client.email.toLowerCase().includes(term)) ||
+                    (client.phone && client.phone.toLowerCase().includes(term)) ||
+                    (client.passport && client.passport.toLowerCase().includes(term))
+                  );
+
+                return (
+                  <tr key={client.id} className={isMatch ? "highlighted-row" : ""}>
+                    <td>{client.firstName} {client.lastName}</td>
+                    <td>{client.dob || "—"}</td>
+                    <td>{client.age || "—"}</td>
+                    <td>{client.email || "—"}</td>
+                    <td>{client.phone || "—"}</td>
+                    <td>{client.phoneNumber || "—"}</td>
+                    <td>{client.contact1 || "—"}</td>
+                    <td>{client.contact2 || "—"}</td>
+                    <td>{client.address || "—"}</td>
+                    <td>{client.passport || "—"}</td>
+                    <td>{client.pcc || "—"}</td>
+                    <td>{client.field || "—"}</td>
+                    <td>{client.designation || "—"}</td>
+                    <td>{client.registrationStatus || "—"}</td>
+                    <td>{client.office || "—"}</td>
+                    <td>{client.medical || "—"}</td>
+                    <td>{client.payment || "—"}</td>
+                    <td>{client.travel || "—"}</td>
+                    <td>{client.interview || "—"}</td>
+                    <td>{client.comments || "—"}</td>
+                    <td>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDelete(client.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
