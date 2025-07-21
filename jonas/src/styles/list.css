@@ -1,0 +1,17 @@
+/* list.css */
+.client-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #333;
+}
+
+.client-table th,
+.client-table td {
+  border: 1px solid #333;
+  padding: 8px;
+  text-align: left;
+}
+
+.client-table th {
+  background-color: #f3f3f3;
+}

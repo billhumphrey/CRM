@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import "../styles/list.css"; // ✅ External styling
 
 const ClientList = () => {
   const [clients, setClients] = useState([]);
@@ -26,66 +27,53 @@ const ClientList = () => {
     fetchClients();
   }, []);
 
+  const tableHeaders = [
+    "Name", "DOB", "Age", "Email", "Phone", "Phone Number", "Contact 1", "Contact 2",
+    "Address", "Passport", "PCC", "Field", "Designation", "Registration", "Office",
+    "Medical", "Payment", "Travel", "Interview", "Comments"
+  ];
+
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-4">Client List</h2>
+    <div className="client-list-container">
+      <h2 className="client-list-title">Client List</h2>
 
       {loading ? (
         <p>Loading clients…</p>
       ) : clients.length === 0 ? (
         <p>No clients found.</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-[1200px] table-auto border-collapse border border-gray-300 text-sm">
-            <thead className="bg-gray-100">
+        <div className="table-wrapper">
+          <table className="client-table">
+            <thead>
               <tr>
-                <th className="border px-2 py-1">Name</th>
-                <th className="border px-2 py-1">DOB</th>
-                <th className="border px-2 py-1">Age</th>
-                <th className="border px-2 py-1">Email</th>
-                <th className="border px-2 py-1">Phone</th>
-                <th className="border px-2 py-1">Phone Number</th>
-                <th className="border px-2 py-1">Contact 1</th>
-                <th className="border px-2 py-1">Contact 2</th>
-                <th className="border px-2 py-1">Address</th>
-                <th className="border px-2 py-1">Passport</th>
-                <th className="border px-2 py-1">PCC</th>
-                <th className="border px-2 py-1">Field</th>
-                <th className="border px-2 py-1">Designation</th>
-                <th className="border px-2 py-1">Registration</th>
-                <th className="border px-2 py-1">Office</th>
-                <th className="border px-2 py-1">Medical</th>
-                <th className="border px-2 py-1">Payment</th>
-                <th className="border px-2 py-1">Travel</th>
-                <th className="border px-2 py-1">Interview</th>
-                <th className="border px-2 py-1">Comments</th>
+                {tableHeaders.map((header) => (
+                  <th key={header}>{header}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
               {clients.map((client) => (
-                <tr key={client.id} className="hover:bg-gray-50">
-                  <td className="border px-2 py-1">
-                    {client.firstName} {client.lastName}
-                  </td>
-                  <td className="border px-2 py-1">{client.dob}</td>
-                  <td className="border px-2 py-1">{client.age}</td>
-                  <td className="border px-2 py-1">{client.email}</td>
-                  <td className="border px-2 py-1">{client.phone}</td>
-                  <td className="border px-2 py-1">{client.phoneNumber}</td>
-                  <td className="border px-2 py-1">{client.contact1}</td>
-                  <td className="border px-2 py-1">{client.contact2}</td>
-                  <td className="border px-2 py-1">{client.address}</td>
-                  <td className="border px-2 py-1">{client.passport}</td>
-                  <td className="border px-2 py-1">{client.pcc}</td>
-                  <td className="border px-2 py-1">{client.field}</td>
-                  <td className="border px-2 py-1">{client.designation}</td>
-                  <td className="border px-2 py-1">{client.registrationStatus}</td>
-                  <td className="border px-2 py-1">{client.office}</td>
-                  <td className="border px-2 py-1">{client.medical}</td>
-                  <td className="border px-2 py-1">{client.payment}</td>
-                  <td className="border px-2 py-1">{client.travel}</td>
-                  <td className="border px-2 py-1">{client.interview}</td>
-                  <td className="border px-2 py-1">{client.comments}</td>
+                <tr key={client.id}>
+                  <td>{client.firstName} {client.lastName}</td>
+                  <td>{client.dob || "—"}</td>
+                  <td>{client.age || "—"}</td>
+                  <td>{client.email || "—"}</td>
+                  <td>{client.phone || "—"}</td>
+                  <td>{client.phoneNumber || "—"}</td>
+                  <td>{client.contact1 || "—"}</td>
+                  <td>{client.contact2 || "—"}</td>
+                  <td>{client.address || "—"}</td>
+                  <td>{client.passport || "—"}</td>
+                  <td>{client.pcc || "—"}</td>
+                  <td>{client.field || "—"}</td>
+                  <td>{client.designation || "—"}</td>
+                  <td>{client.registrationStatus || "—"}</td>
+                  <td>{client.office || "—"}</td>
+                  <td>{client.medical || "—"}</td>
+                  <td>{client.payment || "—"}</td>
+                  <td>{client.travel || "—"}</td>
+                  <td>{client.interview || "—"}</td>
+                  <td>{client.comments || "—"}</td>
                 </tr>
               ))}
             </tbody>
