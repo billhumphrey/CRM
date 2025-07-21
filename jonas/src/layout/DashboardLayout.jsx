@@ -17,18 +17,20 @@ export default function DashboardLayout() {
       <NavLink to="./dashboard" className={({ isActive }) => (isActive ? "active" : "")}>
         Dashboard
       </NavLink>
+            <NavLink to="./clients" className={({ isActive }) => (isActive ? "active" : "")}>
+        Client List
+      </NavLink>
+            <NavLink to="./add-client" className={({ isActive }) => (isActive ? "active" : "")}>
+        Add Client
+      </NavLink>
+            <NavLink to="./housemaids" className={({ isActive }) => (isActive ? "active" : "")}>
+        House Maid List
+      </NavLink>
       <NavLink to="./add-housemaid" className={({ isActive }) => (isActive ? "active" : "")}>
         Add House Maid
       </NavLink>
-      <NavLink to="./housemaids" className={({ isActive }) => (isActive ? "active" : "")}>
-        House Maid List
-      </NavLink>
-      <NavLink to="./add-client" className={({ isActive }) => (isActive ? "active" : "")}>
-        Add Client
-      </NavLink>
-      <NavLink to="./clients" className={({ isActive }) => (isActive ? "active" : "")}>
-        Client List
-      </NavLink>
+
+
     </>
   );
 
