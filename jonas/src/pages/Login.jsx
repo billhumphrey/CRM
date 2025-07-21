@@ -1,21 +1,27 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase"; 
 import "../styles/login.css";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (username === "admin" && password === "password123") {
-      localStorage.setItem("authToken", "example-token");
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const token = await userCredential.user.getIdToken();
+
+      localStorage.setItem("authToken", token);
       navigate("/app/dashboard");
-    } else {
-      setError("Invalid username or password.");
+    } catch (err) {
+      console.error(err);
+      setError("Invalid email or password.");
     }
   };
 
@@ -31,14 +37,14 @@ export default function Login() {
 
         <form onSubmit={handleLogin} className="login-form">
           <div className="login-form-group">
-            <label htmlFor="username" className="login-label">Username</label>
+            <label htmlFor="email" className="login-label">Email</label>
             <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="login-input"
-              placeholder="Enter your username"
+              placeholder="you@example.com"
               required
             />
           </div>
@@ -59,12 +65,10 @@ export default function Login() {
           <button type="submit" className="login-button">Sign In</button>
         </form>
 
-        {/* Reset Account link */}
         <div className="reset-link-wrapper">
-<span className="reset-link" onClick={() => navigate("/reset")}>
-  Reset Account?
-</span>
-
+          <span className="reset-link" onClick={() => navigate("/reset")}>
+            Reset Account?
+          </span>
         </div>
       </div>
     </div>

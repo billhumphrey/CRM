@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { db } from "../firebase";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import "../styles/forms.css";
 
 const AddClient = () => {
@@ -33,11 +35,7 @@ const AddClient = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const storedClients = JSON.parse(localStorage.getItem("clients")) || [];
-    localStorage.setItem("clients", JSON.stringify([...storedClients, formData]));
-    console.log("Client added:", formData);
+  const resetForm = () =>
     setFormData({
       firstName: "",
       lastName: "",
@@ -61,7 +59,22 @@ const AddClient = () => {
       interview: "",
       comments: "",
     });
-  };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const clientData = {
+      ...formData,
+      createdAt: Timestamp.now(),
+    };
+    await addDoc(collection(db, "clients"), clientData); 
+    console.log("Client added to Firestore:", clientData);
+    resetForm();
+  } catch (error) {
+    console.error("Error adding client:", error);
+  }
+};
+
 
   return (
   <div className="container min-h-screen bg-[#f3f4f6] px-4 py-6">

@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import "../styles/forms.css";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { app } from "../firebase"; 
+
+const db = getFirestore(app);
 
 const AddHouseMaid = () => {
   const [formData, setFormData] = useState({
@@ -36,11 +40,15 @@ const AddHouseMaid = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const storedMaids = JSON.parse(localStorage.getItem("housemaids")) || [];
-    localStorage.setItem("housemaids", JSON.stringify([...storedMaids, formData]));
-    console.log("Housemaid added:", formData);
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const docRef = await addDoc(collection(db, "maid"), formData);
+    console.log("Housemaid added with ID:", docRef.id);
+
+    alert("Housemaid added successfully!");
+
     setFormData({
       name: "",
       lastName: "",
@@ -59,7 +67,12 @@ const AddHouseMaid = () => {
       kinContact2: "",
       comments: "",
     });
-  };
+  } catch (error) {
+    console.error("Error adding housemaid:", error);
+    alert("Failed to add housemaid. Please try again.");
+  }
+};
+
 
   return (
     <div className="container min-h-screen bg-[#f3f4f6] px-4 py-6">
@@ -70,6 +83,7 @@ const AddHouseMaid = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Basic Information */}
           <h3 className="col-span-full font-semibold text-lg">Basic Information</h3>
           <div>
             <label>First Name *</label>
@@ -102,6 +116,7 @@ const AddHouseMaid = () => {
             />
           </div>
 
+          {/* Documentation */}
           <h3 className="col-span-full font-semibold text-lg">Documentation</h3>
           <div>
             <label>Passport</label>
@@ -112,6 +127,7 @@ const AddHouseMaid = () => {
             <input name="pcc" value={formData.pcc} onChange={handleChange} className="input short-field" />
           </div>
 
+          {/* Professional */}
           <h3 className="col-span-full font-semibold text-lg">Professional Information</h3>
           <div>
             <label>Training</label>
@@ -138,6 +154,7 @@ const AddHouseMaid = () => {
             </select>
           </div>
 
+          {/* Medical & Payment */}
           <h3 className="col-span-full font-semibold text-lg">Medical & Payment</h3>
           <div>
             <label>Medical</label>
@@ -156,6 +173,7 @@ const AddHouseMaid = () => {
             </select>
           </div>
 
+          {/* Kin */}
           <h3 className="col-span-full font-semibold text-lg">Next of Kin</h3>
           <div>
             <label>Next of Kin Name</label>
@@ -188,6 +206,7 @@ const AddHouseMaid = () => {
             />
           </div>
 
+          {/* Comments */}
           <h3 className="col-span-full font-semibold text-lg">Additional Information</h3>
           <div className="col-span-full">
             <label>Comments</label>
@@ -200,6 +219,7 @@ const AddHouseMaid = () => {
             />
           </div>
 
+          {/* Buttons */}
           <div className="col-span-full" style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
             <button
               type="submit"
