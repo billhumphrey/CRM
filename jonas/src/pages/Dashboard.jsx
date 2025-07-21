@@ -13,22 +13,22 @@ const Dashboard = () => {
       </div>
 
       <div className="card-grid">
-        <Link to="/add-housemaid" className="card">
+        <Link to="../add-housemaid" className="card">
           <img src={AddIcon} alt="Add House Maid Icon" className="card-icon" />
           Add House Maid
         </Link>
 
-        <Link to="/housemaids" className="card">
+        <Link to="../housemaids" className="card">
           <img src={MaidIcon} alt="House Maid Icon" className="card-icon" />
           House Maid List
         </Link>
 
-        <Link to="/add-client" className="card">
+        <Link to="../add-client" className="card">
           <img src={AddIcon} alt="Add Client Icon" className="card-icon" />
           Add Client
         </Link>
 
-        <Link to="/clients" className="card">
+        <Link to="../clients" className="card">
           <img src={ClientIcon} alt="Client Icon" className="card-icon" />
           Client List
         </Link>
