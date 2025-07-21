@@ -213,8 +213,8 @@ const handleSubmit = async (e) => {
             <label className="block mb-1">Travel</label>
             <select name="travel" value={formData.travel} onChange={handleChange} className="input">
               <option value="">Select</option>
-              <option value="Scheduled">Scheduled</option>
-              <option value="Not Scheduled">Not Scheduled</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
             </select>
           </div>
 

@@ -149,8 +149,8 @@ const AddHouseMaid = () => {
             <label>Travel</label>
             <select name="travel" value={formData.travel} onChange={handleChange} className="input short-field">
               <option value="">Select</option>
-              <option value="Ready">Ready</option>
-              <option value="Pending">Pending</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
             </select>
           </div>
 
