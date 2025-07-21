@@ -36,7 +36,6 @@ const ClientList = () => {
     const filtered = clients.filter((client) =>
       (
         `${client.firstName} ${client.lastName}`.toLowerCase().includes(term) ||
-        (client.email && client.email.toLowerCase().includes(term)) ||
         (client.phone && client.phone.toLowerCase().includes(term)) ||
         (client.passport && client.passport.toLowerCase().includes(term))
       )
@@ -56,8 +55,8 @@ const ClientList = () => {
   };
 
   const tableHeaders = [
-    "Name", "DOB", "Age", "Email", "Phone", "Phone Number", "Contact 1", "Contact 2",
-    "Address", "Passport", "PCC", "Field", "Designation", "Registration", "Office",
+    "Name", "DOB", "Age", "Phone", "Phone Number", "Contact 1", "Contact 2",
+    "Passport", "PCC", "Field", "Designation", "Registration", "Office",
     "Medical", "Payment", "Travel", "Interview", "Comments", "Actions"
   ];
 
@@ -74,7 +73,7 @@ const ClientList = () => {
         {showSearch && (
           <input
             type="text"
-            placeholder="Search by name, email, phone, passport..."
+            placeholder="Search by name, phone, passport..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
@@ -103,7 +102,6 @@ const ClientList = () => {
                   term &&
                   (
                     `${client.firstName} ${client.lastName}`.toLowerCase().includes(term) ||
-                    (client.email && client.email.toLowerCase().includes(term)) ||
                     (client.phone && client.phone.toLowerCase().includes(term)) ||
                     (client.passport && client.passport.toLowerCase().includes(term))
                   );
@@ -113,12 +111,10 @@ const ClientList = () => {
                     <td>{client.firstName} {client.lastName}</td>
                     <td>{client.dob || "—"}</td>
                     <td>{client.age || "—"}</td>
-                    <td>{client.email || "—"}</td>
                     <td>{client.phone || "—"}</td>
                     <td>{client.phoneNumber || "—"}</td>
                     <td>{client.contact1 || "—"}</td>
                     <td>{client.contact2 || "—"}</td>
-                    <td>{client.address || "—"}</td>
                     <td>{client.passport || "—"}</td>
                     <td>{client.pcc || "—"}</td>
                     <td>{client.field || "—"}</td>
