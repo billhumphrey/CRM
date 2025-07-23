@@ -3,6 +3,7 @@ import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { FaSearch } from "react-icons/fa";
 import "../styles/list.css";
+import { updateDoc } from "firebase/firestore";
 
 const ClientList = () => {
   const [clients, setClients] = useState([]);
@@ -10,6 +11,9 @@ const ClientList = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [editingClientId, setEditingClientId] = useState(null);
+  const [editData, setEditData] = useState({});
+
 
   useEffect(() => {
     const fetchClients = async () => {
@@ -52,10 +56,24 @@ const ClientList = () => {
     }
   };
 
+  const handleSaveEdit = async (id) => {
+  try {
+    const clientRef = doc(db, "clients", id);
+    await updateDoc(clientRef, editData);
+    setClients((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, ...editData } : c))
+    );
+    setEditingClientId(null);
+  } catch (err) {
+    console.error("Failed to update client:", err);
+    alert("Failed to update client.");
+  }
+};
+
   const tableHeaders = [
     "Name", "DOB", "Age", "Phone", "Phone Number", "Contact 1", "Contact 2",
     "Passport", "PCC", "Field", "Designation", "Registration", "Office",
-    "Medical", "Payment", "Travel", "Interview", "Comments", "Actions"
+    "Medical", "Payment", "Travel","Travel Date", "Interview", "Comments", "Actions"
   ];
 
   return (
@@ -122,29 +140,268 @@ const ClientList = () => {
 
     return (
       <tr key={client.id} className={`${highlightClass} ${rowClass}`}>
-        <td>{client.firstName} {client.lastName}</td>
-        <td>{client.dob || "—"}</td>
-        <td>{client.age || "—"}</td>
-        <td>{client.phone || "—"}</td>
-        <td>{client.phoneNumber || "—"}</td>
-        <td>{client.contact1 || "—"}</td>
-        <td>{client.contact2 || "—"}</td>
-        <td>{client.passport || "—"}</td>
-        <td>{client.pcc || "—"}</td>
-        <td>{client.field || "—"}</td>
-        <td>{client.designation || "—"}</td>
-        <td>{client.registrationStatus || "—"}</td>
-        <td>{client.office || "—"}</td>
-        <td>{client.medical || "—"}</td>
-        <td>{client.payment || "—"}</td>
-        <td>{client.travel || "—"}</td>
-        <td>{client.interview || "—"}</td>
-        <td>{client.comments || "—"}</td>
-        <td>
-          <button className="delete-btn" onClick={() => handleDelete(client.id)}>
-            Delete
-          </button>
-        </td>
+<td>
+  {editingClientId === client.id ? (
+    <>
+      <input
+        value={editData.name || ""}
+        onChange={(e) =>
+          setEditData((prev) => ({ ...prev, name: e.target.value }))
+        }
+        placeholder="First Name"
+      />{" "}
+      <input
+        value={editData.lastName || ""}
+        onChange={(e) =>
+          setEditData((prev) => ({ ...prev, lastName: e.target.value }))
+        }
+        placeholder="Last Name"
+      />
+    </>
+  ) : (
+    <>
+      {client.name || "—"} {client.lastName || ""}
+    </>
+  )}
+</td>
+
+
+ <td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.dob || ""}
+      onChange={(e) =>
+        setEditData((prev) => ({ ...prev, dob: e.target.value }))
+      }
+    />
+  ) : (
+    client.dob || "—"
+  )}
+</td>
+  <td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.age || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, age: e.target.value }))}
+    />
+  ) : (
+    client.age || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.phone || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, phone: e.target.value }))}
+    />
+  ) : (
+    client.phone || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.phoneNumber || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, phoneNumber: e.target.value }))}
+    />
+  ) : (
+    client.phoneNumber || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.contact1 || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, contact1: e.target.value }))}
+    />
+  ) : (
+    client.contact1 || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.contact2 || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, contact2: e.target.value }))}
+    />
+  ) : (
+    client.contact2 || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.passport || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, passport: e.target.value }))}
+    />
+  ) : (
+    client.passport || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.pcc || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, pcc: e.target.value }))}
+    />
+  ) : (
+    client.pcc || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.field || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, field: e.target.value }))}
+    />
+  ) : (
+    client.field || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.designation || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, designation: e.target.value }))}
+    />
+  ) : (
+    client.designation || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.registrationStatus || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, registrationStatus: e.target.value }))}
+    />
+  ) : (
+    client.registrationStatus || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.office || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, office: e.target.value }))}
+    />
+  ) : (
+    client.office || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.medical || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, medical: e.target.value }))}
+    />
+  ) : (
+    client.medical || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.payment || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, payment: e.target.value }))}
+    />
+  ) : (
+    client.payment || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.travel || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, travel: e.target.value }))}
+    />
+  ) : (
+    client.travel || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.travelDate || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, travelDate: e.target.value }))}
+    />
+  ) : (
+    client.travelDate || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.interview || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, interview: e.target.value }))}
+    />
+  ) : (
+    client.interview || "—"
+  )}
+</td>
+
+<td>
+  {editingClientId === client.id ? (
+    <input
+      value={editData.comments || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, comments: e.target.value }))}
+    />
+  ) : (
+    client.comments || "—"
+  )}
+</td>
+
+<td>
+  <button className="delete-btn" onClick={() => handleDelete(client.id)}>
+    Delete
+  </button>
+  <br />
+  {editingClientId === client.id ? (
+    <>
+      <button
+        className="save-btn"
+        style={{ color: "green", marginRight: "8px", cursor: "pointer" }}
+        onClick={() => handleSaveEdit(client.id)}
+      >
+        Save
+      </button>
+      <button
+        className="cancel-btn"
+        style={{ color: "red", cursor: "pointer" }}
+        onClick={() => setEditingClientId(null)}
+      >
+        Cancel
+      </button>
+    </>
+  ) : (
+    <button
+      className="edit-btn"
+      onClick={() => {
+        setEditingClientId(client.id);
+        setEditData(client);
+      }}
+      style={{ color: "green", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+    >
+      Edit
+    </button>
+  )}
+</td>
+
+
       </tr>
     );
   })}

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { db } from "../firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import "../styles/forms.css";
+import {  useRef, useEffect } from "react";
+
 
 const AddClient = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +29,18 @@ const AddClient = () => {
     interview: "",
     comments: "",
   });
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+  return () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+}, []);
+
 
   const handleChange = (e) => {
     setFormData({
@@ -56,6 +70,7 @@ const AddClient = () => {
       medical: "",
       payment: "",
       travel: "",
+      travelDate:"",
       interview: "",
       comments: "",
     });
@@ -67,13 +82,40 @@ const handleSubmit = async (e) => {
       ...formData,
       createdAt: Timestamp.now(),
     };
-    await addDoc(collection(db, "clients"), clientData); 
+    await addDoc(collection(db, "clients"), clientData);
     console.log("Client added to Firestore:", clientData);
     resetForm();
+    setSuccessMessage("Client added successfully!");
+
+    timeoutRef.current = setTimeout(() => {
+      setSuccessMessage("");
+    }, 3000);
   } catch (error) {
     console.error("Error adding client:", error);
   }
 };
+
+
+
+const handleDateChange = (e) => {
+  let { name, value } = e.target;
+
+  // Remove all non-digits
+  value = value.replace(/\D/g, "");
+
+  // Insert slashes for DD/MM/YYYY
+  if (value.length > 4) {
+    value = value.slice(0, 2) + "/" + value.slice(2, 4) + "/" + value.slice(4, 8);
+  } else if (value.length > 2) {
+    value = value.slice(0, 2) + "/" + value.slice(2);
+  }
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+
 
 
   return (
@@ -83,7 +125,11 @@ const handleSubmit = async (e) => {
         <h2 className="text-2xl font-bold mb-2">Add New Client</h2>
         <p className="text-gray-600 mb-6">Enter client information to add them to your database</p>
 
+
+
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+
           {/* Personal Information */}
           <div className="col-span-full">
             <h3 className="font-semibold text-lg mb-1">Personal Information</h3>
@@ -217,6 +263,19 @@ const handleSubmit = async (e) => {
               <option value="No">No</option>
             </select>
           </div>
+                    <div>
+           <label>Travel Date</label>
+           <input
+            name="travelDate"
+            value={formData.travelDate}
+            onChange={handleDateChange}
+            className="input short-field"
+            placeholder="DD/MM/YYYY"
+            pattern="\d{2}/\d{2}/\d{4}"
+            title="Enter date in DD/MM/YYYY format"
+            maxLength={10}
+           />
+          </div>
 
           <div>
             <label className="block mb-1">Interview</label>
@@ -227,6 +286,12 @@ const handleSubmit = async (e) => {
             <label className="block mb-1">Comments</label>
             <textarea name="comments" value={formData.comments} onChange={handleChange} className="input" rows="3" placeholder="Any additional notes or comments..." />
           </div>
+
+       {successMessage && (
+       <div className="col-span-full mb-4 p-3 text-green-600 font-semibold bg-green-100 border border-green-300 rounded">
+          {successMessage}
+       </div>
+        )}
 
           <div className="col-span-full" style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
             <button
@@ -282,7 +347,7 @@ const handleSubmit = async (e) => {
                 cursor: 'pointer',
               }}
             >
-              Cancel
+              Clear Entries
             </button>
           </div>
         </form>

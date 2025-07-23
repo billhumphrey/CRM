@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import "../styles/forms.css";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { app } from "../firebase"; 
+import { useNavigate } from "react-router-dom";
+import {  useRef, useEffect } from "react";
+
 
 const db = getFirestore(app);
+
 
 const AddHouseMaid = () => {
   const [formData, setFormData] = useState({
@@ -24,6 +28,19 @@ const AddHouseMaid = () => {
     kinContact2: "",
     comments: "",
   });
+
+
+    const [successMessage, setSuccessMessage] = useState("");
+    const timeoutRef = useRef(null);
+  
+    useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,6 +76,7 @@ const AddHouseMaid = () => {
       office: "",
       exit: "",
       travel: "",
+      travelDate:"",
       medical: "",
       payment: "",
       kinName: "",
@@ -67,11 +85,39 @@ const AddHouseMaid = () => {
       kinContact2: "",
       comments: "",
     });
+
+    setSuccessMessage("Client added successfully!");
+
+    timeoutRef.current = setTimeout(() => {
+      setSuccessMessage("");
+    }, 3000);
   } catch (error) {
     console.error("Error adding housemaid:", error);
     alert("Failed to add housemaid. Please try again.");
   }
 };
+
+const handleDateChange = (e) => {
+  let { name, value } = e.target;
+
+  // Remove all non-digits
+  value = value.replace(/\D/g, "");
+
+  // Insert slashes for DD/MM/YYYY
+  if (value.length > 4) {
+    value = value.slice(0, 2) + "/" + value.slice(2, 4) + "/" + value.slice(4, 8);
+  } else if (value.length > 2) {
+    value = value.slice(0, 2) + "/" + value.slice(2);
+  }
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+
+
+
 
 
   return (
@@ -154,6 +200,21 @@ const AddHouseMaid = () => {
             </select>
           </div>
 
+          <div>
+           <label>Travel Date</label>
+           <input
+            name="travelDate"
+            value={formData.travelDate}
+            onChange={handleDateChange}
+            className="input short-field"
+            placeholder="DD/MM/YYYY"
+            pattern="\d{2}/\d{2}/\d{4}"
+            title="Enter date in DD/MM/YYYY format"
+            maxLength={10}
+           />
+          </div>
+
+
           {/* Medical & Payment */}
           <h3 className="col-span-full font-semibold text-lg">Medical & Payment</h3>
           <div>
@@ -219,6 +280,13 @@ const AddHouseMaid = () => {
             />
           </div>
 
+       {successMessage && (
+       <div className="col-span-full mb-4 p-3 text-green-600 font-semibold bg-green-100 border border-green-300 rounded">
+          {successMessage}
+       </div>
+        )}
+
+
           {/* Buttons */}
           <div className="col-span-full" style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
             <button
@@ -250,6 +318,7 @@ const AddHouseMaid = () => {
                   office: "",
                   exit: "",
                   travel: "",
+                  travelDate: "",
                   medical: "",
                   payment: "",
                   kinName: "",
@@ -271,7 +340,7 @@ const AddHouseMaid = () => {
                 cursor: 'pointer',
               }}
             >
-              Cancel
+              Clear Entries
             </button>
           </div>
         </form>
