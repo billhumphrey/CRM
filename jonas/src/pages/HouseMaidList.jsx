@@ -242,15 +242,22 @@ const HouseMaidList = () => {
 </td>
 
 <td>
-  {editingMaidId === maid.id ? (
-    <input
+  {editingClientId === client.id ? (
+    <select
       value={editData.travel || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, travel: e.target.value }))}
-    />
+      onChange={(e) =>
+        setEditData((prev) => ({ ...prev, travel: e.target.value }))
+      }
+    >
+      <option value="">Select</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
   ) : (
-    maid.travel || "—"
+    client.travel || "—"
   )}
 </td>
+
 
 <td>
   {editingMaidId === maid.id ? (
@@ -273,17 +280,23 @@ const HouseMaidList = () => {
     maid.medical || "—"
   )}
 </td>
-
 <td>
-  {editingMaidId === maid.id ? (
-    <input
+  {editingClientId === client.id ? (
+    <select
       value={editData.payment || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, payment: e.target.value }))}
-    />
+      onChange={(e) =>
+        setEditData((prev) => ({ ...prev, payment: e.target.value }))
+      }
+    >
+      <option value="">Select</option>
+      <option value="Paid">Paid</option>
+      <option value="Unpaid">Unpaid</option>
+    </select>
   ) : (
-    maid.payment || "—"
+    client.payment || "—"
   )}
 </td>
+
 
 <td>
   {editingMaidId === maid.id ? (

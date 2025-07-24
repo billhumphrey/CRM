@@ -312,25 +312,39 @@ const ClientList = () => {
 
 <td>
   {editingClientId === client.id ? (
-    <input
+    <select
       value={editData.payment || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, payment: e.target.value }))}
-    />
+      onChange={(e) =>
+        setEditData((prev) => ({ ...prev, payment: e.target.value }))
+      }
+    >
+      <option value="">Select</option>
+      <option value="Paid">Paid</option>
+      <option value="Unpaid">Unpaid</option>
+    </select>
   ) : (
     client.payment || "—"
   )}
 </td>
 
+
 <td>
   {editingClientId === client.id ? (
-    <input
+    <select
       value={editData.travel || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, travel: e.target.value }))}
-    />
+      onChange={(e) =>
+        setEditData((prev) => ({ ...prev, travel: e.target.value }))
+      }
+    >
+      <option value="">Select</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
   ) : (
     client.travel || "—"
   )}
 </td>
+
 
 <td>
   {editingClientId === client.id ? (
@@ -345,14 +359,21 @@ const ClientList = () => {
 
 <td>
   {editingClientId === client.id ? (
-    <input
+    <select
       value={editData.interview || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, interview: e.target.value }))}
-    />
+      onChange={(e) =>
+        setEditData((prev) => ({ ...prev, interview: e.target.value }))
+      }
+    >
+      <option value="">Select</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
   ) : (
     client.interview || "—"
   )}
 </td>
+
 
 <td>
   {editingClientId === client.id ? (
