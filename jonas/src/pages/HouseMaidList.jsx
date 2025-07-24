@@ -80,6 +80,7 @@ const HouseMaidList = () => {
       };
     
 
+
   const tableHeaders = [
     "Name", "Contact", "Passport", "PCC", "Training", "Office", "Exit", "Travel","Travel Date",
     "Medical", "Payment", "Next of Kin", "Relationship", "Kin Contact 1", "Kin Contact 2", "Comments", "Actions"
@@ -242,7 +243,7 @@ const HouseMaidList = () => {
 </td>
 
 <td>
-  {editingClientId === client.id ? (
+  {editingMaidId === maid.id ? (
     <select
       value={editData.travel || ""}
       onChange={(e) =>
@@ -254,10 +255,9 @@ const HouseMaidList = () => {
       <option value="No">No</option>
     </select>
   ) : (
-    client.travel || "—"
+    maid.travel || "—"
   )}
 </td>
-
 
 <td>
   {editingMaidId === maid.id ? (
@@ -280,8 +280,9 @@ const HouseMaidList = () => {
     maid.medical || "—"
   )}
 </td>
+
 <td>
-  {editingClientId === client.id ? (
+  {editingMaidId === maid.id ? (
     <select
       value={editData.payment || ""}
       onChange={(e) =>
@@ -293,7 +294,7 @@ const HouseMaidList = () => {
       <option value="Unpaid">Unpaid</option>
     </select>
   ) : (
-    client.payment || "—"
+    maid.payment || "—"
   )}
 </td>
 
