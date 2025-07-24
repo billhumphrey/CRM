@@ -82,7 +82,7 @@ const HouseMaidList = () => {
 
 
   const tableHeaders = [
-    "Name", "Contact", "Passport", "PCC", "Training", "Office", "Exit", "Travel","Travel Date",
+    "Name", "Contact", "Passport", "PCC", "Training", "Office", "Travel","Travel Date",
     "Medical", "Payment", "Next of Kin", "Relationship", "Kin Contact 1", "Kin Contact 2", "Comments", "Actions"
   ];
 
