@@ -29,7 +29,7 @@ export default function Login() {
     <div className="login-page">
       <div className="login-card">
         <div className="login-header">
-          <h2 className="login-title">Login to Your Account</h2>
+          <h2 className="login-title">Jonas Account Login</h2>
           <p className="login-subtitle">Enter your credentials below</p>
         </div>
 
