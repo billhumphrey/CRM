@@ -221,8 +221,8 @@ const handleDateChange = (e) => {
             <label>Medical</label>
             <select name="medical" value={formData.medical} onChange={handleChange} className="input short-field">
               <option value="">Select</option>
-              <option value="Passed">Passed</option>
-              <option value="Pending">Pending</option>
+              <option value="Passed">Cleared</option>
+              <option value="Pending">Not Cleared</option>
             </select>
           </div>
           <div>

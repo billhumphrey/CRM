@@ -241,8 +241,8 @@ const handleDateChange = (e) => {
             <label className="block mb-1">Medical</label>
             <select name="medical" value={formData.medical} onChange={handleChange} className="input">
               <option value="">Select</option>
-              <option value="Completed">Completed</option>
-              <option value="Pending">Pending</option>
+              <option value="Completed">Cleared</option>
+              <option value="Pending">Not Cleared</option>
             </select>
           </div>
 
