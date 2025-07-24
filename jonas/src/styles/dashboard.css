@@ -48,3 +48,52 @@
   height: 100px;
   margin-bottom: 0.5rem;
 }
+
+
+/* Base layout */
+.layout-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar default */
+.sidebar {
+  width: 240px;
+  transition: width 0.3s;
+  background-color: #f9fafb;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Collapsed sidebar */
+.sidebar.collapsed {
+  width: 60px;
+  overflow: hidden;
+}
+
+/* Collapse/expand button */
+.collapse-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+}
+
+.sidebar {
+  transition: width 0.3s ease;
+  width: 240px;
+}
