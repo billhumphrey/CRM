@@ -3,14 +3,16 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyATS_FJDpzAtM251yrAYpQTDfQym6uplqQ",
-  authDomain: "crm-56999.firebaseapp.com",
-  projectId: "crm-56999",
-  storageBucket: "crm-56999.firebasestorage.app",
-  messagingSenderId: "868082155049",
-  appId: "1:868082155049:web:7194294869fcd94cd76638",
-  measurementId: "G-R382TCJ5XR"
+  apiKey: "AIzaSyDv_AUYhyQzAleV0MkQBekkdjMyzystqHc",
+  authDomain: "jonas-681de.firebaseapp.com",
+  projectId: "jonas-681de",
+  storageBucket: "jonas-681de.firebasestorage.app",
+  messagingSenderId: "652136167878",
+  appId: "1:652136167878:web:2ee119cf2d7be52fc99ac7",
+  measurementId: "G-VV2HR7YN26"
 };
+
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
