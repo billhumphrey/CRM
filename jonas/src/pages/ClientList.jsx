@@ -123,18 +123,24 @@ const ClientList = () => {
       );
 
     // Normalize and compare travel/payment
-    const payment = client.payment?.toLowerCase();
-    const travel = client.travel?.toLowerCase();
+// Normalize and compare travel/payment
+const payment = client.payment?.toLowerCase();
+const travel = client.travel?.toLowerCase();
 
-    const paid = payment === "paid";
-    const travelled = travel === "yes" || travel === "travelled" || travel === "ready";
+const paid = payment === "paid";
+const travelled = travel === "yes" || travel === "travelled" || travel === "ready";
 
-    let rowClass = "";
-    if (!paid && travelled) {
-      rowClass = "yellow-row";
-    } else if (paid && travelled) {
-      rowClass = "green-row";
-    }
+let rowClass = "";
+if (!paid && travelled) {
+  rowClass = "red-row"; // Unpaid + Travel-Yes
+} else if (paid && !travelled) {
+  rowClass = "yellow-row"; // Paid + Travel-No
+} else if (paid && travelled) {
+  rowClass = "green-row"; // Paid + Travel-Yes
+} else if (!paid && !travelled) {
+  rowClass = "white-row"; // Unpaid + Travel-No
+}
+
 
     const highlightClass = searchTerm && isMatch ? "highlighted-row" : "";
 

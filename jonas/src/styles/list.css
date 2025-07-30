@@ -84,13 +84,13 @@
   transition: background-color 0.3s ease;
 }
 
-.green-row {
+/* .green-row {
   background-color: #d4fcd2 !important;
 }
 
 .yellow-row {
   background-color: #fff9c4 !important;
-}
+} */
 
 .delete-btn {
   background-color: #ff4d4d;
@@ -129,3 +129,21 @@
   padding: 8px;
   border: 1px solid #ccc;
 }
+
+
+.white-row {
+  background-color: white;
+}
+
+.yellow-row {
+  background-color: #ffed4b;
+}
+
+.green-row {
+  background-color: #42f557;
+}
+
+.red-row {
+  background-color: #fa6a6a;
+}
+
