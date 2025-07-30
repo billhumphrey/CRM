@@ -80,9 +80,11 @@ const AddHouseMaid = () => {
       payment: "",
       kinName: "",
       kinName2: "",
+      kinName3: "",
       relationship: "",
       kinContact1: "",
       kinContact2: "",
+      kinContact3: "",
       comments: "",
     });
 
@@ -269,6 +271,23 @@ const handleDateChange = (e) => {
               type="tel"
               name="kinContact2"
               value={formData.kinContact2}
+              onChange={handleNumericChange}
+              className="input short-field"
+              maxLength={15}
+            />
+          </div>
+
+          <div>
+            <label>Kin name 3</label>
+            <input name="kinName3" value={formData.kinName3} onChange={handleChange} className="input short-field" />
+          </div>
+
+          <div>
+            <label>Kin 3 Contact</label>
+            <input
+              type="tel"
+              name="kinContact3"
+              value={formData.kinContact3}
               onChange={handleNumericChange}
               className="input short-field"
               maxLength={15}

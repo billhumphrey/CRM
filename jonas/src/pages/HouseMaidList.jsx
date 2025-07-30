@@ -84,7 +84,7 @@ const HouseMaidList = () => {
 const tableHeaders = [
   "Name", "Contact", "Passport", "PCC", "Training", "Office",
   "Exit", "Travel", "Travel Date", "Medical", "Payment",
-  "Kin Name 1", "Kin 1 Contact", "Kin Name 2 ", "Kin 2 Contanct", "Comments","Actions"
+  "Kin Name 1", "Kin 1 Contact", "Kin Name 2 ", "Kin 2 Contanct", "Kin Name 3 ", "Kin 3 Contanct","Comments","Actions"
 ];
 
   return (
@@ -352,6 +352,32 @@ return (
         />
       ) : (
         maid.kinContact2 || "—"
+      )}
+    </td>
+
+     {/* Kin 3 */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.kinName3 || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, kinName3: e.target.value }))}
+        />
+      ) : (
+        maid.kinName3 || "—"
+      )}
+    </td>
+
+
+
+    {/* Kin Contact 3 */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.kinContact3 || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, kinContact2: e.target.value }))}
+        />
+      ) : (
+        maid.kinContact3 || "—"
       )}
     </td>
 
