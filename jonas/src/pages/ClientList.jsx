@@ -150,9 +150,9 @@ if (!paid && travelled) {
   {editingClientId === client.id ? (
     <>
       <input
-        value={editData.name || ""}
+        value={editData.firstName || ""}
         onChange={(e) =>
-          setEditData((prev) => ({ ...prev, name: e.target.value }))
+          setEditData((prev) => ({ ...prev, firstName: e.target.value }))
         }
         placeholder="First Name"
       />{" "}
@@ -166,7 +166,7 @@ if (!paid && travelled) {
     </>
   ) : (
     <>
-      {client.name || "—"} {client.lastName || ""}
+      {client.firstName || "—"} {client.lastName || ""}
     </>
   )}
 </td>
