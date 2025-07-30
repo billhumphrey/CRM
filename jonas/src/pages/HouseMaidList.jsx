@@ -81,10 +81,11 @@ const HouseMaidList = () => {
     
 
 
-  const tableHeaders = [
-    "Name", "Contact", "Passport", "PCC", "Training", "Office","Travel Date",, "Travel",
-    "Medical", "Next of Kin", "Payment","Relationship", "Kin Contact 1", "Kin Contact 2", "Comments", "Actions"
-  ];
+const tableHeaders = [
+  "Name", "Contact", "Passport", "PCC", "Training", "Office",
+  "Exit", "Travel", "Travel Date", "Medical", "Payment",
+  "Kin Name 1", "Kin 1 Contact", "Kin Name 2 ", "Kin 2 Contanct", "Comments","Actions"
+];
 
   return (
     <div className="client-list-container">
@@ -148,263 +149,266 @@ const HouseMaidList = () => {
     }
 
     const highlightClass = searchTerm && isMatch ? "highlighted-row" : "";
+return (
+  <tr key={maid.id} className={`${highlightClass} ${rowClass}`}>
+    {/* Name and Last Name */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <>
+          <input
+            value={editData.name || ""}
+            onChange={(e) => setEditData(prev => ({ ...prev, name: e.target.value }))}
+            placeholder="First Name"
+          />
+          <input
+            value={editData.lastName || ""}
+            onChange={(e) => setEditData(prev => ({ ...prev, lastName: e.target.value }))}
+            placeholder="Last Name"
+          />
+        </>
+      ) : (
+        <>
+          {maid.name || "—"} {maid.lastName || ""}
+        </>
+      )}
+    </td>
 
-    return (
-      <tr key={maid.id} className={`${highlightClass} ${rowClass}`}>
+    {/* Contact */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.contact || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, contact: e.target.value }))}
+        />
+      ) : (
+        maid.contact || "—"
+      )}
+    </td>
+
+    {/* Passport */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.passport || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, passport: e.target.value }))}
+        />
+      ) : (
+        maid.passport || "—"
+      )}
+    </td>
+
+    {/* PCC */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.pcc || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, pcc: e.target.value }))}
+        />
+      ) : (
+        maid.pcc || "—"
+      )}
+    </td>
+
+    {/* Training */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.training || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, training: e.target.value }))}
+        />
+      ) : (
+        maid.training || "—"
+      )}
+    </td>
+
+    {/* Office */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.office || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, office: e.target.value }))}
+        />
+      ) : (
+        maid.office || "—"
+      )}
+    </td>
+
+    {/* Exit */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.exit || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, exit: e.target.value }))}
+        />
+      ) : (
+        maid.exit || "—"
+      )}
+    </td>
+
+    {/* Travel */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <select
+          value={editData.travel || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, travel: e.target.value }))}
+        >
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      ) : (
+        maid.travel || "—"
+      )}
+    </td>
+
+    {/* Travel Date */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.travelDate || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, travelDate: e.target.value }))}
+        />
+      ) : (
+        maid.travelDate || "—"
+      )}
+    </td>
+
+    {/* Medical */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.medical || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, medical: e.target.value }))}
+        />
+      ) : (
+        maid.medical || "—"
+      )}
+    </td>
+
+    {/* Payment */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <select
+          value={editData.payment || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, payment: e.target.value }))}
+        >
+          <option value="">Select</option>
+          <option value="Paid">Paid</option>
+          <option value="Unpaid">Unpaid</option>
+        </select>
+      ) : (
+        maid.payment || "—"
+      )}
+    </td>
+
+    {/* Kin Name */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.kinName || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, kinName: e.target.value }))}
+        />
+      ) : (
+        maid.kinName || "—"
+      )}
+    </td>
+
+        {/* Kin Contact 1 */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.kinContact1 || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, kinContact1: e.target.value }))}
+        />
+      ) : (
+        maid.kinContact1 || "—"
+      )}
+    </td>
+
+    {/* Kin 2 */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.kinName2 || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, kinName2: e.target.value }))}
+        />
+      ) : (
+        maid.kinName2 || "—"
+      )}
+    </td>
+
+
+
+    {/* Kin Contact 2 */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <input
+          value={editData.kinContact2 || ""}
+          onChange={(e) => setEditData(prev => ({ ...prev, kinContact2: e.target.value }))}
+        />
+      ) : (
+        maid.kinContact2 || "—"
+      )}
+    </td>
+
+
     <td>
   {editingMaidId === maid.id ? (
-    <>
-      <input
-        value={editData.name || ""}
-        onChange={(e) =>
-          setEditData((prev) => ({ ...prev, name: e.target.value }))
-        }
-        placeholder="First Name"
-      />
-      <input
-        value={editData.lastName || ""}
-        onChange={(e) =>
-          setEditData((prev) => ({ ...prev, lastName: e.target.value }))
-        }
-        placeholder="Last Name"
-      />
-    </>
-  ) : (
-    <>
-      {maid.name || "—"} {maid.lastName || ""}
-    </>
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
     <input
-      value={editData.contact || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, contact: e.target.value }))}
+      value={editData.comments || ""}
+      onChange={(e) => setEditData((prev) => ({ ...prev, comments: e.target.value }))}
     />
   ) : (
-    maid.contact || "—"
+    maid.comments || "—"
   )}
 </td>
 
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.passport || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, passport: e.target.value }))}
-    />
-  ) : (
-    maid.passport || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.pcc || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, pcc: e.target.value }))}
-    />
-  ) : (
-    maid.pcc || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.training || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, training: e.target.value }))}
-    />
-  ) : (
-    maid.training || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.office || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, office: e.target.value }))}
-    />
-  ) : (
-    maid.office || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.exit || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, exit: e.target.value }))}
-    />
-  ) : (
-    maid.exit || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <select
-      value={editData.travel || ""}
-      onChange={(e) =>
-        setEditData((prev) => ({ ...prev, travel: e.target.value }))
-      }
-    >
-      <option value="">Select</option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-    </select>
-  ) : (
-    maid.travel || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.travelDate || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, travelDate: e.target.value }))}
-    />
-  ) : (
-    maid.travelDate || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.medical || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, medical: e.target.value }))}
-    />
-  ) : (
-    maid.medical || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <select
-      value={editData.payment || ""}
-      onChange={(e) =>
-        setEditData((prev) => ({ ...prev, payment: e.target.value }))
-      }
-    >
-      <option value="">Select</option>
-      <option value="Paid">Paid</option>
-      <option value="Unpaid">Unpaid</option>
-    </select>
-  ) : (
-    maid.payment || "—"
-  )}
-</td>
-
-
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.kinName || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, kinName: e.target.value }))}
-    />
-  ) : (
-    maid.kinName || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.relationship || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, relationship: e.target.value }))}
-    />
-  ) : (
-    maid.relationship || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.kinContact1 || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, kinContact1: e.target.value }))}
-    />
-  ) : (
-    maid.kinContact1 || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <input
-      value={editData.kinContact2 || ""}
-      onChange={(e) => setEditData((prev) => ({ ...prev, kinContact2: e.target.value }))}
-    />
-  ) : (
-    maid.kinContact2 || "—"
-  )}
-</td>
-
-<td>
-  {editingMaidId === maid.id ? (
-    <>
-      <button
-        className="save-btn"
-        onClick={() => handleSaveEdit(maid.id)}
-        style={{
-          color: "blue",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          padding: 0,
-          marginRight: "0.5rem"
-        }}
-      >
-        Save
-      </button>
-      <button
-        onClick={() => {
-          setEditingMaidId(null);
-          setEditData({});
-        }}
-        style={{
-          color: "gray",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          padding: 0
-        }}
-      >
-        Cancel
-      </button>
-    </>
-  ) : (
-    <>
-      <button className="delete-btn" onClick={() => handleDelete(maid.id)}>
-        Delete
-      </button>
-      <br />
-      <button
-        className="edit-btn"
-        onClick={() => {
-          setEditingMaidId(maid.id);
-          setEditData(maid); // load data into form
-        }}
-        style={{
-          color: "green",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          padding: 0
-        }}
-      >
-        Edit
-      </button>
-    </>
-  )}
-</td>
-
-
-      </tr>
-    );
+    {/* Actions */}
+    <td>
+      {editingMaidId === maid.id ? (
+        <>
+          <button
+            className="save-btn"
+            onClick={() => handleSaveEdit(maid.id)}
+            style={{ color: "blue", background: "none", border: "none", cursor: "pointer", marginRight: "0.5rem" }}
+          >
+            Save
+          </button>
+          <button
+            onClick={() => {
+              setEditingMaidId(null);
+              setEditData({});
+            }}
+            style={{ color: "gray", background: "none", border: "none", cursor: "pointer" }}
+          >
+            Cancel
+          </button>
+        </>
+      ) : (
+        <>
+          <button
+            className="delete-btn"
+            onClick={() => handleDelete(maid.id)}
+            style={{ marginBottom: "0.25rem" }}
+          >
+            Delete
+          </button>
+          <br />
+          <button
+            className="edit-btn"
+            onClick={() => {
+              setEditingMaidId(maid.id);
+              setEditData(maid);
+            }}
+            style={{ color: "green", background: "none", border: "none", cursor: "pointer" }}
+          >
+            Edit
+          </button>
+        </>
+      )}
+    </td>
+  </tr>
+);
   })}
 </tbody>
 

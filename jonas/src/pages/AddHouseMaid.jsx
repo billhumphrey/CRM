@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../styles/forms.css";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { app } from "../firebase"; 
-import { useNavigate } from "react-router-dom";
 import {  useRef, useEffect } from "react";
 
 
@@ -51,7 +50,7 @@ const AddHouseMaid = () => {
   };
 
   const handleNumericChange = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     if (/^\d*$/.test(value)) {
       handleChange(e);
     }
@@ -80,6 +79,7 @@ const AddHouseMaid = () => {
       medical: "",
       payment: "",
       kinName: "",
+      kinName2: "",
       relationship: "",
       kinContact1: "",
       kinContact2: "",
@@ -237,15 +237,12 @@ const handleDateChange = (e) => {
           {/* Kin */}
           <h3 className="col-span-full font-semibold text-lg">Next of Kin</h3>
           <div>
-            <label>Next of Kin Name</label>
+            <label>Kin name 1</label>
             <input name="kinName" value={formData.kinName} onChange={handleChange} className="input short-field" />
           </div>
+
           <div>
-            <label>Relationship</label>
-            <input name="relationship" value={formData.relationship} onChange={handleChange} className="input short-field" />
-          </div>
-          <div>
-            <label>Phone</label>
+            <label>Kin 1 Contact</label>
             <input
               type="tel"
               name="kinContact1"
@@ -255,8 +252,19 @@ const handleDateChange = (e) => {
               maxLength={15}
             />
           </div>
+<div>
+  <label>Kin Name 2</label>
+  <input
+    type="text" 
+    name="kinName2"
+    value={formData.kinName2 || ""}
+    onChange={handleChange}
+    className="input short-field"
+  />
+</div>
+
           <div>
-            <label>Contact 2</label>
+            <label>kin 2 Contact </label>
             <input
               type="tel"
               name="kinContact2"
