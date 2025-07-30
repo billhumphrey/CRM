@@ -1,12 +1,48 @@
-# React + Vite
+# Jonas CRM System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight CRM system for managing housemaids and clients, built with **React**, **React Router**, and **Firebase Authentication**. This tool allows authenticated users to add, list, and manage housemaids and clients within a dashboard interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🔐 Secure login with Firebase Authentication
+- 🧹 Housemaid management (Add, List)
+- 👥 Client management (Add, List)
+- 📊 Dashboard overview
+- 🔄 Password reset via Firebase
+- 🔒 Protected routes using `RequireAuth`
+- 🎨 Responsive and clean UI (CSS-based)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Clone the repository
+
+     ```bash
+      git clone https://github.com/your-username/jonas-crm.git
+      cd jonas
+
+
+### 2. Install dependencies
+    ```bash
+    pnpm install
+    pnpm run dev
+
+### 3. Setup Firebase
+
+1. Create a project on Firebase Console
+
+2. Enable Email/Password Authentication
+
+3. Get your Firebase config (API key, project ID, etc.)
+
+4. Update src/firebase.ts
+
+   ### 4. Run the project
+      ```bash
+    pnpm run dev
+  
