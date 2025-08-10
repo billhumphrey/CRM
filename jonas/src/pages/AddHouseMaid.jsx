@@ -3,6 +3,7 @@ import "../styles/forms.css";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { app } from "../firebase"; 
 import {  useRef, useEffect } from "react";
+import { serverTimestamp } from "firebase/firestore";
 
 
 const db = getFirestore(app);
@@ -41,13 +42,29 @@ const AddHouseMaid = () => {
   }, []);
   
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  if (name === "dob") {
+    const birthDate = new Date(value);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    setFormData({
+      ...formData,
+      dob: value,
+      age: age >= 0 ? age : ""
+    });
+  } else {
+    setFormData({ ...formData, [name]: value });
+  }
+};
+
 
   const handleNumericChange = (e) => {
     const { value } = e.target;
@@ -86,6 +103,7 @@ const AddHouseMaid = () => {
       kinContact2: "",
       kinContact3: "",
       comments: "",
+      createdAt: serverTimestamp(),
     });
 
     setSuccessMessage("Client added successfully!");
@@ -163,6 +181,32 @@ const handleDateChange = (e) => {
               maxLength={15}
             />
           </div>
+
+{/* DOB field */}
+<div>
+  <label className="block mb-1">Date of Birth</label>
+  <input
+    type="date"
+    name="dob"
+    value={formData.dob}
+    onChange={handleChange}
+    className="input"
+  />
+</div>
+
+{/* Age field */}
+<div>
+  <label className="block mb-1">Age</label>
+  <input
+    type="number"
+    name="age"
+    value={formData.age}
+    onChange={handleChange}
+    className="input"
+    disabled={!formData.dob}
+    style={{ backgroundColor: !formData.dob ? "#f3f4f6" : "white" }}
+  />
+</div>
 
           {/* Documentation */}
           <h3 className="col-span-full font-semibold text-lg">Documentation</h3>
