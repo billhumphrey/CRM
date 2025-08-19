@@ -12,7 +12,6 @@ A lightweight CRM system for managing housemaids and clients, built with **React
 - 📊 Dashboard overview
 - 🔄 Password reset via Firebase
 - 🔒 Protected routes using `RequireAuth`
-- 🎨 Responsive and clean UI (CSS-based)
 
 ---
 
